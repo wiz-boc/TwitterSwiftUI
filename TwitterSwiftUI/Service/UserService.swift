@@ -13,7 +13,6 @@ import Combine
 struct UserService {
     
     func fetchUser(withUid uid: String){
-        
         Firestore.firestore().collection("users")
             .document(uid)
             .getDocument { snapshot, error in
