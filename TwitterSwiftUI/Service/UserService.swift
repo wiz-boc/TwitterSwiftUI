@@ -12,17 +12,15 @@ import Combine
 
 struct UserService {
     
-    func fetchUser(withUid uid: String){
+    func fetchUser(withUid uid: String, completion: @escaping(User) -> Void){
         
         Firestore.firestore().collection("users")
             .document(uid)
             .getDocument { snapshot, error in
                 guard let snapshot = snapshot else { return }
                 guard let user = try? snapshot.data(as: User.self) else { return }
-                   //let user = try snapshot.data(as: User.self)
-                    print("DEBUG: Username is \(user.username) and email \(user.email)")
-                
-                
+                completion(user)
+                    
             }
     }
 }
